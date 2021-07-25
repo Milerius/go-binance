@@ -25,15 +25,17 @@ func newWsConfig(endpoint string) *WsConfig {
 
 var wsServe = func(cfg *WsConfig, handler WsHandler, errHandler ErrHandler) (doneC, stopC chan struct{}, err error) {
 	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	//defer cancel()
 	c, _, err := websocket.Dial(ctx, cfg.Endpoint, nil)
 	if err != nil {
+		cancel()
 		return nil, nil, err
 	}
 	doneC = make(chan struct{})
 	stopC = make(chan struct{})
 	go func() {
 		defer close(doneC)
+		defer cancel()
 		if WebsocketKeepalive {
 			go keepAlive(ctx, c, WebsocketTimeout)
 		}
