@@ -2,11 +2,10 @@ package delivery
 
 import (
 	"fmt"
+	"github.com/milerius/go-binance/v2/common"
+	"github.com/stretchr/testify/suite"
 	"net/http"
 	"testing"
-
-	"github.com/adshao/go-binance/v2/common"
-	"github.com/stretchr/testify/suite"
 )
 
 type serverServiceTestSuite struct {
