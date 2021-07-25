@@ -26,7 +26,7 @@ func newWsConfig(endpoint string) *WsConfig {
 var wsServe = func(cfg *WsConfig, handler WsHandler, errHandler ErrHandler) (doneC, stopC chan struct{}, err error) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	c, _, err := websocket.Dial(ctx, "ws://localhost:8080", nil)
+	c, _, err := websocket.Dial(ctx, cfg.Endpoint, nil)
 	if err != nil {
 		return nil, nil, err
 	}
